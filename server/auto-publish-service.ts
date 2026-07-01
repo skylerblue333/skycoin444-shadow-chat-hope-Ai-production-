@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 export class AutoPublishService {
-  private publishInterval: NodeJS.Timer | null = null;
+  private publishInterval: NodeJS.Timeout | null = null;
   private lastPublishTime: number = 0;
   private publishQueue: string[] = [];
 

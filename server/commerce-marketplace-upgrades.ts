@@ -4,7 +4,7 @@ import { z } from "zod";
 export const commerceMarketplaceRouter = router({
   // NFT minting
   mintNFT: protectedProcedure
-    .input(z.object({ name: z.string(), metadata: z.record(z.any()) }))
+    .input(z.object({ name: z.string(), metadata: z.record(z.string(), z.any()) }))
     .mutation(async ({ input }) => ({
       tokenId: `nft-${Date.now()}`,
       contractAddress: "0x123...",

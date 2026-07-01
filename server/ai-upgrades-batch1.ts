@@ -39,7 +39,7 @@ export const aiUpgradesRouter = router({
 
   // Real-time learning
   learnFromContext: protectedProcedure
-    .input(z.object({ userId: z.string(), context: z.record(z.any()) }))
+    .input(z.object({ userId: z.string(), context: z.record(z.string(), z.any()) }))
     .mutation(async ({ input }) => {
       return {
         learned: true,
@@ -154,7 +154,7 @@ export const aiUpgradesRouter = router({
 
   // Error recovery
   recoverFromError: protectedProcedure
-    .input(z.object({ errorId: z.string(), context: z.record(z.any()) }))
+    .input(z.object({ itemId: z.string(), metadata: z.record(z.string(), z.any()) }))
     .mutation(async ({ input }) => {
       return {
         recovered: true,
