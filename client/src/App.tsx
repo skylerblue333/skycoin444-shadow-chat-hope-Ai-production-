@@ -26,6 +26,7 @@ const NotificationsHub = lazy(() => import("./pages/NotificationsHub"));
 const Messages = lazy(() => import("./pages/Messages"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const SignUp = lazy(() => import("./pages/SignUp"));
+const SignIn = lazy(() => import("./pages/Signin"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Social
@@ -217,6 +218,7 @@ function LegacyRouter() {
         <Route path="/dm" component={Messages} />
         <Route path="/onboarding" component={Onboarding} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
 
         {/* Social */}
         <Route path="/social" component={Social} />

@@ -4,16 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
-import { Mail, Lock, User, Loader2 } from "lucide-react";
+import { Mail, Lock, Loader2 } from "lucide-react";
 
-export function SignUp() {
+export function Signin() {
   const [, setLocation] = useLocation();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,33 +26,23 @@ export function SignUp() {
     setLoading(true);
 
     try {
-      if (!formData.name || !formData.email || !formData.password) {
+      // Validation
+      if (!formData.email || !formData.password) {
         toast.error("Please fill all fields");
         setLoading(false);
         return;
       }
 
-      if (formData.password.length < 8) {
-        toast.error("Password must be at least 8 characters");
-        setLoading(false);
-        return;
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        toast.error("Passwords do not match");
-        setLoading(false);
-        return;
-      }
-
+      // Mock signin - in production, call API
       const token = btoa(`${formData.email}:${formData.password}`);
       localStorage.setItem("auth_token", token);
       localStorage.setItem("user_email", formData.email);
-      localStorage.setItem("user_name", formData.name);
+      localStorage.setItem("user_name", formData.email.split("@")[0]);
 
-      toast.success("Account created! Welcome to SKYCOIN4444 🚀");
+      toast.success("Welcome back! 🎉");
       setLocation("/");
     } catch (error) {
-      toast.error("Signup failed");
+      toast.error("Sign in failed");
     } finally {
       setLoading(false);
     }
@@ -67,28 +55,13 @@ export function SignUp() {
           <div className="text-4xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
             SKYCOIN4444
           </div>
-          <CardTitle className="text-xl text-white">Create Account</CardTitle>
-          <p className="text-sm text-slate-400">Join the ecosystem and start earning</p>
+          <CardTitle className="text-xl text-white">Sign In</CardTitle>
+          <p className="text-sm text-slate-400">Welcome back to the ecosystem</p>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Full Name</label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 w-4 h-4 text-purple-400" />
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Skyler Blue"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="pl-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
-                  disabled={loading}
-                />
-              </div>
-            </div>
-
+            {/* Email */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-300">Email</label>
               <div className="relative">
@@ -105,6 +78,7 @@ export function SignUp() {
               </div>
             </div>
 
+            {/* Password */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-300">Password</label>
               <div className="relative">
@@ -119,25 +93,9 @@ export function SignUp() {
                   disabled={loading}
                 />
               </div>
-              <p className="text-xs text-slate-500">Minimum 8 characters</p>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Confirm Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 w-4 h-4 text-purple-400" />
-                <Input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="pl-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
-                  disabled={loading}
-                />
-              </div>
-            </div>
-
+            {/* Submit */}
             <Button
               type="submit"
               disabled={loading}
@@ -146,46 +104,38 @@ export function SignUp() {
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Creating Account...
+                  Signing In...
                 </>
               ) : (
-                "Create Account"
+                "Sign In"
               )}
             </Button>
 
+            {/* Sign Up Link */}
             <div className="text-center text-sm text-slate-400">
-              Already have an account?{" "}
+              Don't have an account?{" "}
               <button
                 type="button"
-                onClick={() => setLocation("/signin")}
+                onClick={() => setLocation("/signup")}
                 className="text-purple-400 hover:text-purple-300 font-medium"
               >
-                Sign In
+                Create one
               </button>
             </div>
-          </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-700 space-y-2">
-            <p className="text-xs font-semibold text-slate-300">✨ Get Started With:</p>
-            <div className="grid grid-cols-3 gap-2 text-xs text-center">
-              <div className="p-2 bg-slate-800 rounded">
-                <div className="font-bold text-purple-400">1,000</div>
-                <div className="text-slate-500">SKY4</div>
-              </div>
-              <div className="p-2 bg-slate-800 rounded">
-                <div className="font-bold text-yellow-400">500</div>
-                <div className="text-slate-500">DOGE</div>
-              </div>
-              <div className="p-2 bg-slate-800 rounded">
-                <div className="font-bold text-red-400">100</div>
-                <div className="text-slate-500">TRUMP</div>
+            {/* Demo Credentials */}
+            <div className="mt-6 pt-6 border-t border-slate-700 space-y-2">
+              <p className="text-xs font-semibold text-slate-300">🧪 Demo Credentials:</p>
+              <div className="bg-slate-800 p-3 rounded text-xs text-slate-300 space-y-1">
+                <div><span className="text-slate-500">Email:</span> demo@skycoin.com</div>
+                <div><span className="text-slate-500">Password:</span> demo1234</div>
               </div>
             </div>
-          </div>
+          </form>
         </CardContent>
       </Card>
     </div>
   );
 }
 
-export default SignUp;
+export default Signin;
