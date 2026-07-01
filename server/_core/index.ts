@@ -12,6 +12,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { healthRouter, healthMonitor } from "../health-monitor";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -48,6 +49,9 @@ async function startServer() {
   const isDev = process.env.NODE_ENV === "development";
 
   app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false, crossOriginResourcePolicy: { policy: "cross-origin" } }));
+  
+  // Health monitoring routes
+  app.use("/api", healthRouter);
   app.use(compression({ level: 6, threshold: 1024 }) as any);
   app.use(isDev ? morgan("dev") : morgan("combined", { skip: (req) => req.path === "/api/health" }));
   app.use(globalLimiter);
