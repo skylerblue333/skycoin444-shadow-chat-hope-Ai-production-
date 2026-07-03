@@ -361,7 +361,7 @@ export default function Home() {
                   />
                 </div>
                 {/* Quick command chips */}
-                <div className="flex flex-wrap gap-1.5 px-4 pb-3 border-t border-white/5 pt-2">
+                <div className="flex flex-wrap gap-2 px-4 pb-3 border-t border-white/5 pt-3 relative z-20">
                   {[
                     { label: "🪙 Stake SKY444", cmd: "Stake 500 SKY444 and show my rewards" },
                     { label: "🛍 Buy from DHgate", cmd: "Find me a Rolex under $200 on DHgate" },
@@ -376,18 +376,18 @@ export default function Home() {
                       key={chip.label}
                       type="button"
                       onClick={() => { setHeroCommand(chip.cmd); heroInputRef.current?.focus(); }}
-                      className="text-[10px] font-mono px-3 py-1.5 rounded-full border border-[oklch(0.72_0.28_305)]/25 text-[oklch(0.72_0.28_305)]/80 hover:border-[oklch(0.72_0.28_305)]/70 hover:text-[oklch(0.72_0.28_305)] hover:bg-[oklch(0.72_0.28_305)]/10 transition-all duration-150 cursor-pointer active:scale-95"
+                      className="text-[10px] font-mono px-3 py-1.5 rounded-full border border-[oklch(0.72_0.28_305)]/40 text-[oklch(0.72_0.28_305)]/90 hover:border-[oklch(0.72_0.28_305)]/80 hover:text-[oklch(0.72_0.28_305)] hover:bg-[oklch(0.72_0.28_305)]/15 transition-all duration-150 cursor-pointer active:scale-95 whitespace-nowrap"
                     >
                       {chip.label}
                     </button>
                   ))}
                 </div>
                 {/* Submit row */}
-                <div className="flex items-center justify-between px-4 py-3 border-t border-white/5 bg-white/[0.02]">
+                <div className="flex items-center justify-between px-4 py-3 border-t border-white/5 bg-white/[0.02] relative z-20">
                   <span className="text-[10px] text-white/30 font-mono">Powered by Hope AI · No wallet needed to explore</span>
                   <Button
                     type="submit"
-                    className="gradient-psychedelic text-white font-bold gap-2 px-6 h-10 rounded-xl text-sm"
+                    className="gradient-psychedelic text-white font-bold gap-2 px-6 h-10 rounded-xl text-sm hover:shadow-lg transition-all"
                     disabled={!heroCommand.trim()}
                   >
                     <Zap className="w-4 h-4" />
