@@ -55,8 +55,8 @@ export function useWebSocket(options: UseWebSocketOptions) {
       };
 
       ws.onerror = (error) => {
-        console.error('[WebSocket] Error:', error);
-        onError?.(error);
+        console.warn('[WebSocket] Connection error - continuing without real-time notifications');
+        // Don't call onError to avoid blocking rendering
       };
 
       ws.onclose = () => {
